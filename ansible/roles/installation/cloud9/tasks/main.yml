@@ -1,1 +1,25 @@
-# TDB
+---
+
+- name: Install dependencies
+  apt:
+    name: "{{ packages }}"
+    state: 'present'
+  vars:
+    packages:
+      - build-essential
+      - git
+  become: yes
+      
+- name: Cloning Cloud9 repo
+  git:
+    repo: "https://github.com/c9/core.git"
+    dest: /etc/c9sdk
+    depth: 1
+  become: yes
+  
+- name: Running setup
+  shell: scripts/install-sdk.sh
+  args:
+    chdir: /etc/c9sdk
+    executable: /bin/bash
+  become: yes
