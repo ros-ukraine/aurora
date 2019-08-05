@@ -118,7 +118,7 @@ sudo apt-get install -y python3-pip git libyaml-dev python-crypto libssl-dev lib
 sudo chown $USER:$USER $aurora_home || true
 sudo rm -rf ${aurora_home}
 
-git clone --depth 1 -b ${aurora_tools_branch} https://github.com/shadow-robot/aurora.git $aurora_home
+git clone --depth 1 -b ${aurora_tools_branch} https://github.com/ros-ukraine/aurora.git $aurora_home
 
 echo ""
 echo " -------------------"
