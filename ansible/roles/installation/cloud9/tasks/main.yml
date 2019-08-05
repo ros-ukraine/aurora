@@ -1,5 +1,10 @@
 ---
 
+- name: Update package lists
+  apt:
+    update_cache: yes
+  become: yes
+  
 - name: Install dependencies
   apt:
     name: "{{ packages }}"
@@ -16,13 +21,11 @@
 - name: Cloning Cloud9 repo
   git:
     repo: "https://github.com/c9/core.git"
-    dest: /etc/c9sdk
+    dest: "{{ c9sdk_folder }}"
     depth: 1
-  become: yes
   
 - name: Running setup
   shell: scripts/install-sdk.sh
   args:
-    chdir: /etc/c9sdk
+    chdir: "{{ c9sdk_folder }}"
     executable: /bin/bash
-  become: yes
