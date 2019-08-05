@@ -8,6 +8,9 @@
     packages:
       - build-essential
       - git
+      - curl
+      - nodejs
+      - npm
   become: yes
       
 - name: Cloning Cloud9 repo
