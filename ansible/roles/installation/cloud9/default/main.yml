@@ -1,3 +1,0 @@
----
-
-c9sdk_folder: "{{ ansible_env.HOME }}/c9sdk"
