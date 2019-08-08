@@ -1,0 +1,31 @@
+---
+
+- name: Update package lists
+  apt:
+    update_cache: yes
+  become: yes
+  
+- name: Install dependencies
+  apt:
+    name: "{{ packages }}"
+    state: 'present'
+  vars:
+    packages:
+      - build-essential
+      - git
+      - curl
+      - nodejs
+      - npm
+  become: yes
+      
+- name: Cloning Cloud9 repo
+  git:
+    repo: "https://github.com/c9/core.git"
+    dest: "{{ c9sdk_folder }}"
+    depth: 1
+  
+- name: Running setup
+  shell: scripts/install-sdk.sh
+  args:
+    chdir: "{{ c9sdk_folder }}"
+    executable: /bin/bash
