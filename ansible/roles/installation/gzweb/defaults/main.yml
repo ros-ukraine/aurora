@@ -1,0 +1,3 @@
+---
+
+gzweb_folder: "{{ ansible_env.HOME }}/gzweb"
