@@ -31,7 +31,7 @@
     
 - name: Modify node-gyp version to fix syntax issue
   lineinfile:
-    path: "{{ gzweb_folder }}"/package.json
+    path: "{{ gzweb_folder }}/package.json"
     regexp: '^\s*"node-gyp"'
     line: "node-gyp": "3.0.3"
   
