@@ -23,7 +23,7 @@
       - build-essential
   become: yes
       
-- name: Cloning Cloud9 repo
+- name: Cloning GzWeb repo
   hg:
     repo: https://bitbucket.org/osrf/gzweb
     dest: "{{ gzweb_folder }}"
@@ -33,7 +33,12 @@
   lineinfile:
     path: "{{ gzweb_folder }}/package.json"
     regexp: '^\s*"node-gyp"'
-    line: '"node-gyp": "3.0.3"'
+    line: '"node-gyp": "3.0.3",'
+
+- name: Debug print file !!!
+  debug: var=item
+  with_file:
+    - "{{ gzweb_folder }}/package.json"
   
 - name: Running setup
   shell: source /usr/share/gazebo/setup.sh && npm run deploy --- -m
