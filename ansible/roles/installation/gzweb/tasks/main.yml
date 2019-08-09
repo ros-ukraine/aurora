@@ -1,0 +1,36 @@
+---
+
+- name: Update package lists
+  apt:
+    update_cache: yes
+  become: yes
+  
+- name: Install dependencies
+  apt:
+    name: "{{ packages }}"
+    state: 'present'
+  vars:
+    packages:
+      - libjansson-dev
+      - nodejs
+      - npm
+      - nodejs-legacy
+      - libboost-dev
+      - imagemagick
+      - libtinyxml-dev
+      - mercurial
+      - cmake
+      - build-essential
+  become: yes
+      
+- name: Cloning Cloud9 repo
+  hg:
+    repo: https://bitbucket.org/osrf/gzweb
+    dest: "{{ gzweb_folder }}"
+    revision: gzweb_1.4.0
+  
+- name: Running setup
+  shell: source /usr/share/gazebo/setup.sh && npm run deploy --- -m
+  args:
+    chdir: "{{ gzweb_folder }}"
+    executable: /bin/bash
