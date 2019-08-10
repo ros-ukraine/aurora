@@ -38,12 +38,6 @@
       - build-essential
   become: yes
 
-- name: Running setup
-  shell: source /usr/share/gazebo/setup.sh && npm run deploy --- -m
-  args:
-    chdir: "{{ gzweb_folder }}"
-    executable: /bin/bash
-
 - name: Cloning GzWeb repo
   hg:
     repo: https://bitbucket.org/osrf/gzweb
