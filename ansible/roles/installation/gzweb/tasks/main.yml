@@ -4,6 +4,7 @@
   get_url:
     url: https://deb.nodesource.com/setup_10.x
     dest: /tmp/setup_10.sh
+    mode: '0755'
 
 - name: Execute NodeJS repository installer
   shell: /tmp/setup_10.sh
