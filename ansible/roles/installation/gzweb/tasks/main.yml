@@ -1,10 +1,24 @@
 ---
 
+- name: Download NodeJS repository installer
+  get_url:
+    url: https://deb.nodesource.com/setup_10.x
+    dest: /tmp/setup_10.sh
+
+- name: Execute NodeJS repository installer
+  shell: /tmp/setup_10.sh
+  become: yes
+
+- name: Remove installer
+  file:
+    path: /tmp/setup_10.sh
+    state: absent
+
 - name: Update package lists
   apt:
     update_cache: yes
   become: yes
-  
+
 - name: Install dependencies
   apt:
     name: "{{ packages }}"
@@ -22,7 +36,13 @@
       - cmake
       - build-essential
   become: yes
-      
+
+- name: Running setup
+  shell: source /usr/share/gazebo/setup.sh && npm run deploy --- -m
+  args:
+    chdir: "{{ gzweb_folder }}"
+    executable: /bin/bash
+
 - name: Cloning GzWeb repo
   hg:
     repo: https://bitbucket.org/osrf/gzweb
@@ -35,11 +55,6 @@
     regexp: '^\s*"node-gyp"'
     line: '"node-gyp": "3.0.3",'
 
-- name: Debug print file !!!
-  debug: var=item
-  with_file:
-    - "{{ gzweb_folder }}/package.json"
-  
 - name: Running setup
   shell: source /usr/share/gazebo/setup.sh && npm run deploy --- -m
   args:
