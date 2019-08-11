@@ -51,14 +51,6 @@
       - npm
   become: yes
 
-#- name: Create a symbolic link insread of nodejs-legacy
-#  file:
-#    src: /usr/bin/nodejs
-#    dest: /usr/bin/node
-#    mode: '0755'
-#    state: link
-#  become: yes
-
 - name: Cloning GzWeb repo
   hg:
     repo: https://bitbucket.org/osrf/gzweb
@@ -72,7 +64,7 @@
     line: '"node-gyp": "3.0.3",'
 
 - name: Running setup
-  shell: source /usr/share/gazebo/setup.sh && npm run deploy --- -m
+  shell: source /usr/share/gazebo/setup.sh && npm run deploy --- -m -c -t
   args:
     chdir: "{{ gzweb_folder }}"
     executable: /bin/bash
