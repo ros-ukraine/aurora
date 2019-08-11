@@ -51,13 +51,13 @@
       - npm
   become: yes
 
-- name: Create a symbolic link insread of nodejs-legacy
-  file:
-    src: /usr/bin/nodejs
-    dest: /usr/bin/node
-    mode: '0755'
-    state: link
-  become: yes
+#- name: Create a symbolic link insread of nodejs-legacy
+#  file:
+#    src: /usr/bin/nodejs
+#    dest: /usr/bin/node
+#    mode: '0755'
+#    state: link
+#  become: yes
 
 - name: Cloning GzWeb repo
   hg:
