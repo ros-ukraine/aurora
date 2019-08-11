@@ -20,6 +20,12 @@
     update_cache: yes
   become: yes
 
+- name: Remove nodejs-legacy in order to upgrade NodeJS
+  apt:
+    name: nodejs-legacy
+    state: 'absent'
+  become: yes
+
 - name: Install dependencies
   apt:
     name: "{{ packages }}"
@@ -43,7 +49,14 @@
     packages:
       - nodejs
       - npm
-      - nodejs-legacy
+  become: yes
+
+- name: Create a symbolic link insread of nodejs-legacy
+  file:
+    src: /usr/bin/nodejs
+    dest: /usr/bin/node
+    mode: '0755'
+    state: link
   become: yes
 
 - name: Cloning GzWeb repo
