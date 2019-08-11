@@ -27,15 +27,23 @@
   vars:
     packages:
       - libjansson-dev
-      - nodejs
-      - npm
-      - nodejs-legacy
       - libboost-dev
       - imagemagick
       - libtinyxml-dev
       - mercurial
       - cmake
       - build-essential
+  become: yes
+
+- name: Upgrade and install NodeJS
+  apt:
+    name: "{{ packages }}"
+    state: 'latest'
+  vars:
+    packages:
+      - nodejs
+      - npm
+      - nodejs-legacy
   become: yes
 
 - name: Cloning GzWeb repo
