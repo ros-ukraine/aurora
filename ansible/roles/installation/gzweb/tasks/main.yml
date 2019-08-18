@@ -1,0 +1,70 @@
+---
+
+- name: Download NodeJS repository installer
+  get_url:
+    url: https://deb.nodesource.com/setup_10.x
+    dest: /tmp/setup_10.sh
+    mode: '0755'
+
+- name: Execute NodeJS repository installer
+  shell: /tmp/setup_10.sh
+  become: yes
+
+- name: Remove installer
+  file:
+    path: /tmp/setup_10.sh
+    state: absent
+
+- name: Update package lists
+  apt:
+    update_cache: yes
+  become: yes
+
+- name: Remove nodejs-legacy in order to upgrade NodeJS
+  apt:
+    name: nodejs-legacy
+    state: 'absent'
+  become: yes
+
+- name: Install dependencies
+  apt:
+    name: "{{ packages }}"
+    state: 'present'
+  vars:
+    packages:
+      - libjansson-dev
+      - libboost-dev
+      - imagemagick
+      - libtinyxml-dev
+      - mercurial
+      - cmake
+      - build-essential
+  become: yes
+
+- name: Upgrade and install NodeJS
+  apt:
+    name: "{{ packages }}"
+    state: 'latest'
+  vars:
+    packages:
+      - nodejs
+      - npm
+  become: yes
+
+- name: Cloning GzWeb repo
+  hg:
+    repo: https://bitbucket.org/osrf/gzweb
+    dest: "{{ gzweb_folder }}"
+    revision: gzweb_1.4.0
+    
+- name: Modify node-gyp version to fix syntax issue
+  lineinfile:
+    path: "{{ gzweb_folder }}/package.json"
+    regexp: '^\s*"node-gyp"'
+    line: '"node-gyp": "3.0.3",'
+
+- name: Running setup
+  shell: source /usr/share/gazebo/setup.sh && npm run deploy --- -m -c -t
+  args:
+    chdir: "{{ gzweb_folder }}"
+    executable: /bin/bash
