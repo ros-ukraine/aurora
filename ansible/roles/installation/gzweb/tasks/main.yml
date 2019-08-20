@@ -39,6 +39,7 @@
       - mercurial
       - cmake
       - build-essential
+      - xvfb
   become: yes
 
 - name: Upgrade and install NodeJS
