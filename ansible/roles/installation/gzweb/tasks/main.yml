@@ -65,7 +65,7 @@
     line: '"node-gyp": "3.0.3",'
 
 - name: Running setup
-  shell: source /usr/share/gazebo/setup.sh && npm run deploy --- -m -c -t
+  shell: source /usr/share/gazebo/setup.sh && npm run deploy --- -m -c
   args:
     chdir: "{{ gzweb_folder }}"
     executable: /bin/bash
