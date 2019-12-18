@@ -33,7 +33,7 @@
   
 - name: Make sure that workspace folder exists
   file:
-    path: "{{ rvizweb_folder }}"
+    path: "{{ rvizweb_folder }}/src"
     state: directory
     mode: '0755'  
   
