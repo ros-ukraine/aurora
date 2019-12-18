@@ -1,0 +1,3 @@
+---
+
+rvizweb_folder: "{{ ansible_env.HOME }}/rvizweb"
