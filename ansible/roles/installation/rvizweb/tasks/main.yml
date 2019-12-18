@@ -35,7 +35,8 @@
   git:
     repo: https://github.com/osrf/rvizweb.git
     dest: "{{ rvizweb_folder }}"
-    revision: 1bc1938234602625005bd80fa3912c4c66933be6
+    depth: 1
+    version: 1bc1938234602625005bd80fa3912c4c66933be6
 
 - name: Installing ROS dependencies
   shell: rosdep install --from-paths src --ignore-src -r -y
