@@ -1,0 +1,51 @@
+---
+- name: Download nvm repository installer
+  get_url:
+    url: https://raw.githubusercontent.com/creationix/nvm/v0.33.4/install.sh
+    dest: /tmp/install.sh
+    mode: '0755'
+
+- name: Execute nvm repository installer
+  shell: /tmp/install.sh
+  become: yes
+
+- name: Remove installer
+  file:
+    path: /tmp/install.sh
+    state: absent
+
+- name: Update package lists
+  apt:
+    update_cache: yes
+  become: yes
+  
+- name: Install dependencies
+  apt:
+    name: "{{ packages }}"
+    state: 'present'
+  vars:
+    packages:
+      - git
+      - curl
+      - nodejs
+      - npm
+  become: yes
+
+- name: Cloning RVizWeb repo
+  git:
+    repo: https://github.com/osrf/rvizweb.git
+    dest: "{{ rvizweb_folder }}"
+    revision: 1bc1938234602625005bd80fa3912c4c66933be6
+
+- name: Installing ROS dependencies
+  shell: rosdep install --from-paths src --ignore-src -r -y
+  args:
+    chdir: "{{ rvizweb_folder }}"
+    executable: /bin/bash
+
+- name: Installing RVizWeb
+  shell: . /opt/ros/kinetic/setup.sh && . ~/.bashrc && catkin_make install
+  args:
+    chdir: "{{ rvizweb_folder }}"
+    executable: /bin/bash
+    
