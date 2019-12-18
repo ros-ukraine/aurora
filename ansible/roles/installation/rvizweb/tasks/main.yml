@@ -30,11 +30,23 @@
       - nodejs
       - npm
   become: yes
+  
+- name: Make sure that workspace folder exists
+  file:
+    path: "{{ rvizweb_folder }}"
+    state: directory
+    mode: '0755'  
+  
+- name: Create workspace
+  shell: . /opt/ros/kinetic/setup.sh && . ~/.bashrc && catkin_init_workspace
+  args:
+    chdir: "{{ rvizweb_folder }}"
+    executable: /bin/bash
 
 - name: Cloning RVizWeb repo
   git:
     repo: https://github.com/osrf/rvizweb.git
-    dest: "{{ rvizweb_folder }}"
+    dest: "{{ rvizweb_folder }}/src"
     version: 1bc1938234602625005bd80fa3912c4c66933be6
 
 - name: Installing ROS dependencies
