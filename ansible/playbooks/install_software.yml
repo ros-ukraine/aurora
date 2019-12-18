@@ -21,3 +21,4 @@
     - {role: installation/steamvr, when: "'steamvr' in software_list"}
     - {role: installation/cloud9, when: "'cloud9' in software_list"}
     - {role: installation/gzweb, when: "'gzweb' in software_list"}
+    - {role: installation/rvizweb, when: "'rvizweb' in software_list"}
