@@ -40,7 +40,7 @@
 - name: Create workspace
   shell: . /opt/ros/kinetic/setup.sh && . ~/.bashrc && catkin_init_workspace
   args:
-    chdir: "{{ rvizweb_folder }}"
+    chdir: "{{ rvizweb_folder }}/src"
     executable: /bin/bash
 
 - name: Cloning RVizWeb repo
