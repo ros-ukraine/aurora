@@ -46,7 +46,7 @@
 - name: Cloning RVizWeb repo
   git:
     repo: https://github.com/osrf/rvizweb.git
-    dest: "{{ rvizweb_folder }}/src"
+    dest: "{{ rvizweb_folder }}/src/rvizweb"
     version: 1bc1938234602625005bd80fa3912c4c66933be6
 
 - name: Installing ROS dependencies
