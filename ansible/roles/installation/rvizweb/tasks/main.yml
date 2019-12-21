@@ -30,7 +30,12 @@
       - nodejs
       - npm
   become: yes
-  
+
+- name: Remove folder for clean re-installation
+  file:
+    path: "{{ rvizweb_folder }}"
+    state: absent
+
 - name: Make sure that workspace folder exists
   file:
     path: "{{ rvizweb_folder }}/src"
