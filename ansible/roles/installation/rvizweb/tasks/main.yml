@@ -31,9 +31,8 @@
   become: yes
 
 - name: Update NodeJS
-  shell: . ./.bashrc && nvm install node
+  shell: . "{{ansible_env.HOME}}/.nvm/nvm.sh" && nvm install node
   args:
-    chdir: "{{ansible_env.HOME}}"
     executable: /bin/bash
 
 - name: Remove folder for clean re-installation
