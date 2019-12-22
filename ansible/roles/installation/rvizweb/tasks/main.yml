@@ -31,6 +31,12 @@
       - npm
   become: yes
 
+- name: Update NodeJS
+  shell: . ~/.bashrc && nvm install node
+  args:
+    chdir: "{{ rvizweb_folder }}/src"
+    executable: /bin/bash
+
 - name: Remove folder for clean re-installation
   file:
     path: "{{ rvizweb_folder }}"
