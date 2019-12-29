@@ -16,8 +16,14 @@
       - curl
       - nodejs
       - npm
+      - tmux
   become: yes
-      
+
+- name: Fixing error during installation
+  shell: npm config set unsafe-perm true
+  args:
+    executable: /bin/bash
+
 - name: Cloning Cloud9 repo
   git:
     repo: "https://github.com/c9/core.git"
