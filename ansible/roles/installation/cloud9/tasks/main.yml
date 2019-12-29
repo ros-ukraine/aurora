@@ -16,6 +16,7 @@
       - curl
       - nodejs
       - npm
+      - tmux
   become: yes
 
 - name: Fixing error during installation
