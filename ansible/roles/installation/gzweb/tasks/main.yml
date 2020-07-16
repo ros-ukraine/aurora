@@ -53,10 +53,11 @@
   become: yes
 
 - name: Cloning GzWeb repo
-  hg:
-    repo: https://bitbucket.org/osrf/gzweb
+  git:
+    repo: "https://github.com/osrf/gzweb.git"
     dest: "{{ gzweb_folder }}"
-    revision: gzweb_1.4.0
+    depth: 1
+    version: gzweb_1.4.0
     
 - name: Modify node-gyp version to fix syntax issue
   lineinfile:
